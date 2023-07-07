@@ -1,0 +1,5 @@
+# gitignore pycache
+__pycache__/
+
+# gitignore .pyc files
+*.pyc
