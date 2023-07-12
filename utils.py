@@ -124,7 +124,9 @@ def distribution_plot(data, include_columns=None, exclude_columns=None, title='D
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-def plot_norm_countplot(data, category_col, hue_col=None, horizontal=False):
+def plot_norm_countplot(data, category_col, hue_col=None, horizontal=False, title=None, xticks_rotation=45):
+    plt.style.use('ggplot')
+
     # Calculate the count and percentage for each category and hue
     if hue_col is None:
         counts = data[category_col].value_counts(normalize=True).mul(100).reset_index()
@@ -146,7 +148,7 @@ def plot_norm_countplot(data, category_col, hue_col=None, horizontal=False):
         ax.set_ylim((0,100))
 
     # Rotate the x-axis labels if needed
-    plt.xticks(rotation=50)
+    plt.xticks(rotation=xticks_rotation)
 
     # Add percentages to the countplot
     for p in ax.patches:
@@ -165,7 +167,10 @@ def plot_norm_countplot(data, category_col, hue_col=None, horizontal=False):
     # Set the y-axis label
     ax.set_ylabel('Percentage')
     # Set the title of the plot
-    ax.set_title(f"Normalized Countplot by {category_col if category_col else ''} colored by {hue_col if hue_col else ''}")
+    if title:
+        ax.set_title(title)
+    else:
+        ax.set_title(f"Normalized Countplot by {category_col if category_col else ''} colored by {hue_col if hue_col else ''}")
     # Display the plot
     plt.show()
 
